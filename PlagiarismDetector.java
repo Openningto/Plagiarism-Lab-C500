@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Collections;
 
 
 public class PlagiarismDetector {
@@ -17,8 +18,20 @@ public class PlagiarismDetector {
     }
 
     private void generateReports() {
-        File[] subFile = new File(submissions).listFiles();
-        File[] sourceFile
+        File[] subFiles = new File(submissions).listFiles();
+        File[] sourceFiles = new File(sources).listFiles();
+        reports = new ArrayList<>();
+        Detector detector = new Detector();
+
+        ArrayList<File> toTest = new ArrayList<>();
+
+        for (File sub : subFiles) {
+            for (File sou : sourceFiles) {
+                if (sub.getName().equalsIgnoreCase(sou.getName())) {
+                    reports.add(new PairReport(sub.getName(), sou.getName(), detector));
+                }
+            }
+        }
     }
 
     public ArrayList<PairReport> getAllPotentialOffenderrs( ){

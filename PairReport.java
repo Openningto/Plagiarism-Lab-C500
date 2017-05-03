@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class PairReport {
+public class PairReport implements Comparable<PairReport> {
     private String cleanerFile1;
     private String cleanerFile2;
     private Detector detector;
@@ -9,6 +9,10 @@ public class PairReport {
         cleanerFile1 = file1;
         cleanerFile2 = file2;
         detector = dec;
+    }
+
+    public int compareTo(PairReport other) {
+        return this.detector.getSimilarity() - other.detector.getSimilarity();
     }
 
     public String getCleaner1() {
