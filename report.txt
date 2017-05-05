@@ -1,0 +1,14 @@
+Links:
+1. https://en.wikipedia.org/wiki/2013_NBA_draft
+2. https://en.wikipedia.org/wiki/Parliamentary_system
+
+A = base text
+B = direct copy of A
+C = B + Paragraph (2)
+D = B - 1/2 Paragraph
+E = C - Text from paragraphs 1 & 2
+F = Paragraph (1) with synonyms & spacing
+G = Unrelated paragraph from 1
+H = Part of Paragraph (1) + Paragraph (2)
+I = H with synonyms
+J = Unrelated paragraph from 2
