@@ -24,4 +24,8 @@ public class TxtReader implements Reader {
       file = clean;
       return clean;
   	}
+
+    public String readFile() {
+        return null;
+    }
   }

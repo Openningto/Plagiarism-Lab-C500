@@ -12,7 +12,14 @@ public class PairReport implements Comparable<PairReport> {
     }
 
     public int compareTo(PairReport other) {
-        return this.detector.getSimilarity() - other.detector.getSimilarity();
+        double thisScore = this.detector.getSimilarityScore();
+        double otherScore = other.detector.getSimilarityScore();
+        if (thisScore > otherScore) {
+            return 1;
+        } else if (thisScore < otherScore) {
+            return -1;
+        }
+        return 0;
     }
 
     public String getCleaner1() {
@@ -32,7 +39,7 @@ public class PairReport implements Comparable<PairReport> {
     }
 
     public double getSimilarity() {
-        return detector.getSimilarity();
+        return detector.getSimilarityScore();
     }
 
     public ArrayList<String> getCList() {

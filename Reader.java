@@ -1,3 +1,3 @@
 public interface Reader{
-	String readFile(){}
+	String readFile();
 }

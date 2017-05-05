@@ -1,5 +1,7 @@
 import java.io.File;
 import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PlagiarismDetector {
@@ -7,7 +9,8 @@ public class PlagiarismDetector {
     private String submissions;
     private String sources;
 
-    final static double PLAGIARISM_THRESHOLD = 0.1;
+    private final static double PLAGIARISM_THRESHOLD = 0.1;
+    private final static String DIRECTORY = new File("").getAbsolutePath();
     private ArrayList<PairReport> reports;
 
     public PlagiarismDetector(String sub, String sou) {
@@ -21,13 +24,22 @@ public class PlagiarismDetector {
         File[] subFiles = new File(submissions).listFiles();
         File[] sourceFiles = new File(sources).listFiles();
         reports = new ArrayList<>();
-        Detector detector = new Detector();
 
         ArrayList<File> toTest = new ArrayList<>();
 
         for (File sub : subFiles) {
             for (File sou : sourceFiles) {
-                if (sub.getName().equalsIgnoreCase(sou.getName())) {
+                if (sub.getName().contains(".docx") && sou.getName().contains(".docx")) {
+                    DocXReader sourceReader = new DocXReader(sou.getAbsolutePath());
+                    DocXReader subReader = new DocXReader(sub.getAbsolutePath());
+
+                    String sourceText = sourceReader.readFile();
+                    String subText = subReader.readFile();
+
+                    sourceText = Cleaner.cleanFull(Cleaner.cleanXML(sourceText));
+                    subText = Cleaner.cleanFull(Cleaner.cleanXML(subText));
+
+                    Detector detector = new Detector(sourceText, subText);
                     reports.add(new PairReport(sub.getName(), sou.getName(), detector));
                 }
             }
@@ -57,7 +69,10 @@ public class PlagiarismDetector {
         }
     }
 
-    public List<String> getCList() {
-        return det.getCList();
+    public static void main(String[] args) {
+        PlagiarismDetector pd = new PlagiarismDetector(DIRECTORY+"/submissions", DIRECTORY+"/sources");
+        pd.generateReports();
+        pd.getAllPotentialOffenderrs();
+        pd.printReports();
     }
 }

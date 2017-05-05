@@ -18,6 +18,8 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.nio.charset.Charset;
 
+@Deprecated
+
 public class ReadZip
 {
     private static final int BUFFER_SIZE = 8192;
