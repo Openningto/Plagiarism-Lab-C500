@@ -20,8 +20,6 @@ public class DocXReader {
     public String readFile() { //reads the Docx file and returns the String contents of the desired subfile
         String docText = "";
 
-        System.out.println("FILE: "+file);
-
         try{
             // A ZipInputStream reads in the zip file
             ZipInputStream zis = new ZipInputStream(new FileInputStream(file),
@@ -35,9 +33,7 @@ public class DocXReader {
                 int index = ze.getName().indexOf('/');
                 if (ze.getName().matches(".*\\Qdocument.xml\\E")) {
 
-                    System.out.println("Reading: " + ze.getName());
                     docText += readInFileContents(zis);
-                    System.out.println();
                     break;
                 }
                 else {
